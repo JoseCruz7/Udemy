@@ -1,0 +1,32 @@
+# ------------------------------------------------------------------------------------------------ #
+#     LA CARPETA E2E SIRVE PARA REALIZAR PRUEBAS DE INTEGRACION LA CUAL SE CREA AUTOMATICAMENTE    #
+# ------------------------------------------------------------------------------------------------ #
+
+# ------------------------------------------------------------------------------------------------ #
+#          LA CARPETA DE MODULOS NOS AYUDAN A MONRA EL SERVE O LAS DIFERENTES EXTENSIONES          #
+# ------------------------------------------------------------------------------------------------ #
+NOTA: SE DEBE DE SUBIR SOLO CON LOS MODULOS NECESARIOS PARA LA APP
+
+# ------------------------------------------------------------------------------------------------ #
+#                      LA CARPETA SRC ESTA LA APLICACION DE NUESTRO DESARROLLO                     #
+# ------------------------------------------------------------------------------------------------ #
+
+
+# ------------------------------------------------------------------------------------------------ #
+#                                       SRC / APP /COMPONENT                                       #
+# ------------------------------------------------------------------------------------------------ #
+
+import { Component } from '@angular/core';  // Se importa para utlizar un componente
+
+@Component({ //Se utiliza como un decorador
+
+  selector: 'app-root',   //Nos ayuda a establecer la etiqueta que se establecera en el index
+  templateUrl: './app.component.html',   // Toma el HTML que utilizara este componente
+  styleUrls: ['./app.component.css']     // Toma el Css que utilizara este componente
+})
+export class AppComponent { //clase del componente que tiene un export para utilizarla luego en otros modulos
+  title = 'proyectoUno'; //Variables // Funciones
+  name = 'Jose';
+  lastName='Cruz'; 
+
+}
