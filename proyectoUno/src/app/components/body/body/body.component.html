@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+              *ngIf
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Peter Parker</h5>
+              <p class="card-text" *ngIf="Pruebas">Un gran poder conlleva una Gran responsabilidad</p>
+            </div>
+            <a href="#" class="btn btn-primary" (click)="Pruebas = !Pruebas">Mostrar / Ocultar</a>
+          </div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+              *ngFor
+            </div>
+            <div class="card-body" *ngFor="let items of personArray; index as i">
+              {{i+1}} - {{items}}
+            </div>
+            
+          </div>
+      </div>
+    </div>
+  </div>
