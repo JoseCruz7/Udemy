@@ -1,0 +1,188 @@
+# ------------------------------------------------------------------------------------------------ #
+#     LA CARPETA E2E SIRVE PARA REALIZAR PRUEBAS DE INTEGRACION LA CUAL SE CREA AUTOMATICAMENTE    #
+# ------------------------------------------------------------------------------------------------ #
+
+# ------------------------------------------------------------------------------------------------ #
+#          LA CARPETA DE MODULOS NOS AYUDAN A MONRA EL SERVE O LAS DIFERENTES EXTENSIONES          #
+# ------------------------------------------------------------------------------------------------ #
+NOTA: SE DEBE DE SUBIR SOLO CON LOS MODULOS NECESARIOS PARA LA APP
+
+# ------------------------------------------------------------------------------------------------ #
+#                      LA CARPETA SRC ESTA LA APLICACION DE NUESTRO DESARROLLO                     #
+# ------------------------------------------------------------------------------------------------ #
+
+
+# ------------------------------------------------------------------------------------------------ #
+#                                       SRC / APP /COMPONENT                                       #
+# ------------------------------------------------------------------------------------------------ #
+
+import { Component } from '@angular/core';  // Se importa para utlizar un componente
+
+@Component({ //Se utiliza como un decorador
+
+  selector: 'app-root',   //Nos ayuda a establecer la etiqueta que se establecera en el index
+  templateUrl: './app.component.html',   // Toma el HTML que utilizara este componente
+  styleUrls: ['./app.component.css']     // Toma el Css que utilizara este componente
+})
+export class AppComponent { //clase del componente que tiene un export para utilizarla luego en otros modulos
+  title = 'proyectoUno'; //Variables // Funciones
+  name = 'Jose';
+  lastName='Cruz'; 
+
+}
+
+
+# ------------------------------------------------------------------------------------------------ #
+#                        COMO INSTALAR BOOTSTRAP EN NUESTRO PROYETO CON NPM                        #
+# ------------------------------------------------------------------------------------------------ #
+- NPM INSTALL BOOTSTRAP --SAVE
+- NPM INSTALL JQUERY --SAVE
+- NPM INSTALL POPPER.JS --SAVE
+
+Se debe de especificar en el archivo Angular.json:
+
+            "styles": [
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/jquery/dist/jquery.slim.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js"
+
+            ]
+
+# ------------------------------------------------------------------------------------------------ #
+#                     PARA ESTABLECER UN ICONO EN LA PESTANA ES EL FAVICON.ICO                     #
+# ------------------------------------------------------------------------------------------------ #
+
+# ------------------------------------------------------------------------------------------------ #
+#                                COMO AGREGAR EL ROUTING AL PROYECTO                               #
+# ------------------------------------------------------------------------------------------------ #
+- Se debe de crear un documento en src/app/app.routes.ts
+
+import { RouterModule, Routes} from '@angular/router';
+import { HomeComponent } from './components/shared/home/home.component';
+import { HeroesComponent} from './components/shared/heroes/heroes.component';
+
+
+const APP_ROUTES: Routes =[
+    {path: 'home', component: HomeComponent },
+    {path: 'heroes' , component: HeroesComponent},
+    {path: '**', pathMatch: 'full', redirectTo: ''}
+];
+
+export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES, {useHash:true});
+
+# ------------------------------------------------------------------------------------------------ #
+#                               PARA REALIZAR LOS ENLACES A LOS LINK                               #
+# ------------------------------------------------------------------------------------------------ #
+
+Se deve de utilizar el parameto [routerLink]="['home']"
+
+Para realizar un evento click para redireccionar utilizaremos la siguiente estructura:
+
+import (router) from '@angular/router';
+
+se debe de iniciar la variable en el constructor
+contructor(private router: Router){
+
+}
+metodo(){
+  this.router.navigate(['heroe', variable]) // se envia variable pero se debe de configurar en el app.routes como 
+}
+
+{path: 'heroe/:id', component: HeroeComponent}
+
+Si se utiliza la variable de a:
+
+- <a [rauterLink]= "'home/i'">Ingresar</a>
+
+# ---------------------------------------------------------------------------- #
+#                       REALIZAR LOS SERVICIOS EN ANGULAR                      #
+# ---------------------------------------------------------------------------- #
+- Para realizar un servicio se hace al nivel de app de nombre services/nombre.service.ts
+La estuctura es la siguiente:
+import {injectable} from '@angular/core'
+@injectable()
+export class HeroeService{
+
+  constructor(){
+
+  }
+
+  metodos(){
+
+  }
+}
+
+Se debe se estableces en el archivo de app.modulo.ts
+y se ingresa en la parte de: Provider siempre importando el servicio
+
+PARA UTILIZAR EL SERVICIO EN UN COMPONENTE SE DEBE DE INICIAR EN EL constructor
+import {HeroeService} from '../../Services/HeroeService'
+
+this.arrayData:any[]=[];
+
+Constructor (privare nombreService: HeroeService){
+  this.arrayData = this.nombreService.getdata() //Ya puedes ingresar a los metodos
+}
+
+# ---------------------------------------------------------------------------- #
+#     COMO ESCUCHAR DATOS DE UN OBSERVADOR DE LA URL O PARAMETROS EN LA URL    #
+# ---------------------------------------------------------------------------- #
+Se debe de importar el actviveRuo 
+import { ActivatedRoute } from '@angular/router';
+
+NUEVAMENTE SE DEBE DE INCLUIR N EL Constructor
+
+Costructor( private activateRouter: ActivateRoute){
+  this.activeteRouter.param.subcribe(params =>params => this.specificHeroe = this.heroeService.getHeroesById(params.id))
+  ### REGRESA UNA PROMETA CON LOS DATOS ENVIADOS POR A URL EN ESTE CASO SOLO SE SOLICITO EL ID
+}
+
+
+# ---------------------------------------------------------------------------- #
+#                              DATOS DE LOS PIPES                              #
+# ---------------------------------------------------------------------------- #
+- currency
+* date
+* uppercase
+* json
+* limitTo
+* lowerCase
+* async
+* decimal
+* percent
+
+# ---------------------------------------------------------------------------- #
+#                    Colocar un nombre a la etiqueta de HMTL                   #
+# ---------------------------------------------------------------------------- #
+- #buscarHeroe //Toma el valor del input  buscarHeroe.value
+Nota: //tengo que utlizar un ng-template tambien para los if
+
+# ---------------------------------------------------------------------------- #
+#                   COMO MANDAR PARAMETROS DEL PADRE AL HIJO                   #
+# ---------------------------------------------------------------------------- #
+- SE UTILIZA LA VARIABLE DE INPUT EN LA EQIQUETA HTML DEL HIJO
+import { Component, OnInit, Input } from '@angular/core';
+import {Router} from '@angular/router';
+
+@Component({
+  selector: 'app-heroe-tarjeta',
+  templateUrl: './heroe-tarjeta.component.html'
+})
+export class HeroeTarjetaComponent implements OnInit {
+
+  @Input() item:any = {};
+  @Input() index:number;
+
+  constructor(private router:Router) { }
+
+  ngOnInit(): void {
+  }
+
+  infoHeroe(){
+    this.router.navigate(['heroe', this.index]);
+  }
+}
