@@ -186,3 +186,30 @@ export class HeroeTarjetaComponent implements OnInit {
     this.router.navigate(['heroe', this.index]);
   }
 }
+
+# ---------------------------------------------------------------------------- #
+#              CLASES DE PIPES QUE UTILIZAREMOS Y COMO UTILIZARLOS             #
+# ---------------------------------------------------------------------------- #
+
+{{nombre | uppercase}} //Se muestra en pantalla con las letras mayuscuas sin variar el valor de la variable
+- uppercase
+- lowercase
+
+- slice:3 //Elimina las primeras Letras 3
+- slice:0:3 //Queres las primers 3 Letras, tambien se puede ejecutar en los arregles y con arreglos 
+*ngFor = "let item of arreglo | slice:5:10" //Muestra los datos de la posicion 5 hasta la 10
+
+- number (Decimal)/ {{variable | number:'1.0-0'}}
+//Lo utilizamos para tomar solo el numero entero o con ciertos decimales requerido
+
+-percent {{variable | percent:'2.2-2'}}
+ //Converir en porcentaje con 2 digitos y 2 decimales
+
+-currency {{variable | curency:'EUR':'symbol-narrow':'.0-0'}}
+//Varible en modena nacional o extranjera con el simbolo y con 0 decimales
+
+- json {{varible | json}}
+//Sirve para ejecutar la impresion en pantalla de un objeto 
+
+- async {variablePromesa | async} 
+// se realizara una procema y esparar que el objeto asincrono responda y lo coloca aqui
